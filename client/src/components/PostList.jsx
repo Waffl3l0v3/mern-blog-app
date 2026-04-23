@@ -13,7 +13,7 @@ const PostList = () => {
 
   const fetchPosts = async () => {
     try {
-      const res = await axios.get('http://localhost:5000/api/posts');
+      const res = await axios.get('/api/posts');
       setPosts(res.data);
       setLoading(false);
     } catch (err) {
@@ -25,7 +25,7 @@ const PostList = () => {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/posts/${id}`);
+        await axios.delete(`/api/posts/${id}`);
         setPosts(posts.filter(post => post._id !== id));
       } catch (err) {
         console.error('Error deleting post:', err);

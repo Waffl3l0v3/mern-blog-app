@@ -12,7 +12,7 @@ const PostDetail = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+        const res = await axios.get(`/api/posts/${id}`);
         setPost(res.data);
         setLoading(false);
       } catch (err) {
@@ -26,7 +26,7 @@ const PostDetail = () => {
   const handleDelete = async () => {
     if (window.confirm('Are you sure you want to delete this post?')) {
       try {
-        await axios.delete(`http://localhost:5000/api/posts/${id}`);
+        await axios.delete(`/api/posts/${id}`);
         navigate('/');
       } catch (err) {
         console.error('Error deleting post:', err);

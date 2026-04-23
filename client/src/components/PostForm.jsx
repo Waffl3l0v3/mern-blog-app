@@ -14,7 +14,7 @@ const PostForm = () => {
     if (isEditing) {
       const fetchPost = async () => {
         try {
-          const res = await axios.get(`http://localhost:5000/api/posts/${id}`);
+          const res = await axios.get(`/api/posts/${id}`);
           setFormData({
             title: res.data.title,
             content: res.data.content,
@@ -37,9 +37,9 @@ const PostForm = () => {
     setLoading(true);
     try {
       if (isEditing) {
-        await axios.put(`http://localhost:5000/api/posts/${id}`, formData);
+        await axios.put(`/api/posts/${id}`, formData);
       } else {
-        await axios.post('http://localhost:5000/api/posts', formData);
+        await axios.post('/api/posts', formData);
       }
       navigate('/');
     } catch (err) {

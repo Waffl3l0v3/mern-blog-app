@@ -36,12 +36,17 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```
 
 3. **Install Dependencies**:
-   Run the following command in the **root** folder (`mern-blog-app`) to install all necessary dependencies for both the frontend and backend:
+   You can install dependencies for the whole project or separately using commands from the root directory:
    ```bash
-   npm run build
+   # Install both client and server dependencies:
+   npm run install-all
+
+   # Or install them separately if needed:
+   npm run install-client
+   npm run install-server
    ```
 
-### Running the Application
+### Running the Application (Development)
 
 To start both the Express backend server and the Vite React frontend concurrently, simply run this command in the root folder:
 
@@ -52,3 +57,17 @@ npm start
 The application will be accessible at:
 - Frontend: `http://localhost:5173`
 - Backend API: `http://localhost:5000`
+
+*Note: The React frontend uses a Vite proxy (`client/vite.config.js`) to automatically route `/api/*` requests to the backend at port 5000 during development.*
+
+### Production Deployment
+
+When deploying to a production environment (e.g., Azure VMs, AWS EC2, DigitalOcean):
+
+1. **Build the Frontend**: `cd client && npm run build`
+2. **Start the Backend**: `cd server && pm2 start server.js`
+3. **Architecture**: It is recommended to use **Nginx** as a reverse proxy. Configure Nginx to:
+   - Serve the static files from `client/dist` for requests to `/`
+   - Proxy requests for `/api/` to your backend server's private IP/port.
+   
+Because the frontend uses relative API paths (`/api/posts`), you **do not** need to configure `VITE_API_URL` when using this reverse-proxy architecture.
