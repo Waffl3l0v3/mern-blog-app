@@ -44,12 +44,18 @@ Follow these instructions to get a copy of the project up and running on your lo
 ### Available Scripts
 
 From the root directory, you can run:
+
+**Development & Setup**
 - `npm run install-all` - Installs root, client, and server dependencies.
-- `npm run build` - Builds the full project for production.
 - `npm start` - Starts both frontend and backend concurrently for local development.
-- `npm run build-client` - Builds only the React frontend.
 - `npm run start-client` - Starts only the React frontend dev server.
 - `npm run start-server` - Starts only the Express backend dev server.
+
+**Deployment & Production**
+- `npm run install-client` - Installs only the React frontend dependencies.
+- `npm run install-server` - Installs only the Express backend dependencies.
+- `npm run build-client` - Builds the React frontend for production (same as `npm run build`).
+- `npm run start-prod` - Starts the Express backend server for production.
 
 ### Running the Application (Development)
 
@@ -67,12 +73,28 @@ The application will be accessible at:
 
 ### Production Deployment
 
-When deploying to a production environment (e.g., Azure VMs, AWS EC2, DigitalOcean):
+When deploying to a production environment (e.g., Azure VMs, AWS EC2, DigitalOcean, or PaaS providers like Render/Vercel), you must install and process the client and server separately.
 
-1. **Build the Frontend**: `cd client && npm run build`
-2. **Start the Backend**: `cd server && pm2 start server.js`
-3. **Architecture**: It is recommended to use **Nginx** as a reverse proxy. Configure Nginx to:
-   - Serve the static files from `client/dist` for requests to `/`
-   - Proxy requests for `/api/` to your backend server's private IP/port.
+**1. Deploying the Frontend (Client)**
+Because Vite generates static files, you must install and build the client:
+```bash
+npm run install-client
+npm run build-client
+```
+*Note: The `legacy-peer-deps` rule is automatically applied via the `client/.npmrc` file.*
+Once built, serve the contents of the `client/dist` directory using a web server (like Nginx) or a static hosting platform (like Vercel or Netlify).
+
+**2. Deploying the Backend (Server)**
+The Node.js/Express server does not require a build step:
+```bash
+npm run install-server
+npm run start-prod
+```
+*Tip: In a real production environment, it's highly recommended to use a process manager like **PM2** (`cd server && pm2 start server.js`) to keep your backend alive rather than just `npm run start-prod`.*
+
+**3. Architecture**
+If deploying both on the same machine, use **Nginx** as a reverse proxy:
+- Serve the static files from `client/dist` for requests to `/`
+- Proxy requests for `/api/` to your backend server's private IP/port.
    
 Because the frontend uses relative API paths (`/api/posts`), you **do not** need to configure `VITE_API_URL` when using this reverse-proxy architecture.
