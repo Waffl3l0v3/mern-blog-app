@@ -36,15 +36,20 @@ Follow these instructions to get a copy of the project up and running on your lo
    ```
 
 3. **Install Dependencies**:
-   You can install dependencies for the whole project or separately using commands from the root directory:
+   Run the following command from the root directory to install all dependencies for the project:
    ```bash
-   # Install both client and server dependencies:
    npm run install-all
-
-   # Or install them separately if needed:
-   npm run install-client
-   npm run install-server
    ```
+
+### Available Scripts
+
+From the root directory, you can run:
+- `npm run install-all` - Installs root, client, and server dependencies.
+- `npm run build` - Builds the full project for production.
+- `npm start` - Starts both frontend and backend concurrently for local development.
+- `npm run build-client` - Builds only the React frontend.
+- `npm run start-client` - Starts only the React frontend dev server.
+- `npm run start-server` - Starts only the Express backend dev server.
 
 ### Running the Application (Development)
 

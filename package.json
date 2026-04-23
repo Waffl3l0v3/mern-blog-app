@@ -5,11 +5,11 @@
   "main": "index.js",
   "scripts": {
     "install-all": "npm install && npm install --prefix server && npm install --prefix client --legacy-peer-deps",
-    "build": "npm run install-all && npm run build --prefix client",
-    "start": "npm run install-all && npm run dev",
-    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
-    "server": "npm run dev --prefix server",
-    "client": "npm run dev --prefix client"
+    "build": "npm run build-client",
+    "start": "concurrently \"npm run start-server\" \"npm run start-client\"",
+    "build-client": "npm run build --prefix client",
+    "start-client": "npm run dev --prefix client",
+    "start-server": "npm run dev --prefix server"
   },
   "dependencies": {
     "concurrently": "^8.2.2"
