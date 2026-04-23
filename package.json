@@ -1,0 +1,17 @@
+{
+  "name": "blog-app",
+  "version": "1.0.0",
+  "description": "Minimal MERN stack blog app",
+  "main": "index.js",
+  "scripts": {
+    "install-all": "npm install && npm install --prefix server && npm install --prefix client --legacy-peer-deps",
+    "build": "npm run install-all && npm run build --prefix client",
+    "start": "npm run install-all && npm run dev",
+    "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\"",
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
